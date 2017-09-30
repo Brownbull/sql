@@ -1,0 +1,25 @@
+insert into public.carrera values (1, '{Derecho}', 3);commit;
+insert into public.carrera values (2, '{Ingenieria en Sistemas}', 4);commit;
+
+insert into public.materia values (1, '{Matematica}', 25);commit;
+insert into public.materia values (2, '{Espanol}', 15);commit;
+
+insert into public.profesor values (1, '{Laura Rosas}', '{Calle Azul}',567867,'07:00:00');commit;
+insert into public.profesor values (2, '{Roberto Diaz}', '{Calle Rosa}',56473526,'09:00:00');commit;
+
+insert into public.alumno values (1, '{Ana}', 18, 6, '{Mujer}',1);commit;
+
+insert into public.alu_pro values (1, 2);commit;
+
+insert into public.mat_alu values (1, 1);commit;
+
+insert into public.mat_pro values (2, 2);commit;
+rollback;
+
+select * from public.carrera;
+select * from public.materia;
+select * from public.profesor;
+select * from public.alumno;
+select * from public.alu_pro;
+select * from public.mat_alu;
+select * from public.mat_pro;

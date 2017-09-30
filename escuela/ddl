@@ -1,0 +1,141 @@
+CREATE DATABASE escuela
+    WITH 
+    OWNER = utilone
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+    
+-- tabla carrera
+CREATE TABLE public.carrera
+(
+    clave_c integer,
+    nom_c character varying(50)[],
+    durac_c double precision,
+    CONSTRAINT pk_cc PRIMARY KEY (clave_c)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.carrera
+    OWNER to utilone;
+    
+-- tabla materia
+CREATE TABLE public.materia
+(
+    clave_m integer,
+    nom_m character varying(50)[],
+    durac_m double precision,
+    CONSTRAINT pk_cm PRIMARY KEY (clave_m)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.materia
+    OWNER to utilone;
+
+-- create table profesor
+CREATE TABLE public.profesor
+(
+    clave_p integer,
+    nom_p character varying(150)[],
+    dir_p character varying(200)[],
+    tel_p bigint,
+    hor_p date,
+    CONSTRAINT pk_cp PRIMARY KEY (clave_p)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.profesor
+    OWNER to utilone;
+    
+-- create alumno with fk
+CREATE TABLE public.alumno
+(
+    mat_alu integer,
+    nom_alu character varying(150)[],
+    edad_alu integer,
+    sem_alu integer,
+    gen_alu character varying(10)[],
+    clave_c1 integer,
+    CONSTRAINT pk_calu PRIMARY KEY (mat_alu),
+    CONSTRAINT fk_fc1 FOREIGN KEY (clave_c1)
+        REFERENCES public.carrera (clave_c) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.alumno
+    OWNER to utilone;
+    
+-- create table 
+CREATE TABLE public.alu_pro
+(
+    mat_alu1 integer,
+    clave_p1 integer,
+    CONSTRAINT fk_falu1 FOREIGN KEY (mat_alu1)
+        REFERENCES public.alumno (mat_alu) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_fp1 FOREIGN KEY (clave_p1)
+        REFERENCES public.profesor (clave_p) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.alu_pro
+    OWNER to postgres;
+    
+-- create table 
+CREATE TABLE public.mat_alu
+(
+    clave_m1 integer,
+    mat_alu2 integer,
+    CONSTRAINT fk_fm1 FOREIGN KEY (clave_m1)
+        REFERENCES public.materia (clave_m) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_falu2 FOREIGN KEY (mat_alu2)
+        REFERENCES public.alumno (mat_alu) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.mat_alu
+    OWNER to utilone;
+    
+-- create table matpro
+CREATE TABLE public.mat_pro
+(
+    clave_m2 integer,
+    clave_p2 integer,
+    CONSTRAINT fk_fm2 FOREIGN KEY (clave_m2)
+        REFERENCES public.materia (clave_m) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_fp2 FOREIGN KEY (clave_p2)
+        REFERENCES public.profesor (clave_p) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.mat_pro
+    OWNER to utilone;
+    
+    
+
+
