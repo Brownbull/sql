@@ -1,5 +1,6 @@
 select * from syscat.tables where tabname like '%as%' fetch first 10 rows only;commit;
 select * from syscat.views where viewname like '%%' and viewschema like '%%' fetch first 10 rows only;commit;
+select * from syscat.functions where funcname like '%%' and funcschema like '%%' fetch first 10 rows only;commit;
 
 SELECT HSN, PIN, DBPARTITIONNUM(PIN) AS PARTITION_NUM
 			FROM THIS.TABLEORVIEW
